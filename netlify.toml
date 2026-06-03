@@ -1,0 +1,15 @@
+# Configuration Netlify — site statique (un seul index.html à la racine)
+
+[build]
+  # Pas d'étape de build : le site est déjà du HTML pur
+  command = ""
+  # Dossier publié = racine du dépôt
+  publish = "."
+
+# En-têtes de sécurité de base (bonne pratique)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
