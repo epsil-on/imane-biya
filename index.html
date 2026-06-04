@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Imane Biya — Économie & Société</title>
+<meta name="description" content="Décryptages économiques et sociaux par Imane Biya, étudiante en économie. Comprendre l'actualité sans jargon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Mulish:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +20,7 @@
     --blush:#E7D6C8;
     --sage:#8B9A82;
     --line:#E3D8C8;
-    --shadow:rgba(60,46,32,.10);
+    --shadow:rgba(60,46,32,.12);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -32,11 +33,14 @@
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
-  /* grain overlay */
   body::before{
-    content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.04;
+    content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+
+  /* Progress bar */
+  #progress{position:fixed;top:0;left:0;height:2px;background:var(--rose-deep);z-index:10000;width:0;transition:width .1s linear}
+
   h1,h2,h3,h4{font-family:'Cormorant Garamond',serif;font-weight:500;line-height:1.08;letter-spacing:.2px}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
@@ -44,6 +48,14 @@
     font-family:'Mulish',sans-serif;font-size:11px;font-weight:600;
     letter-spacing:.28em;text-transform:uppercase;color:var(--rose-deep);
   }
+
+  /* ---------- TICKER ---------- */
+  .ticker{background:var(--ink);color:var(--cream);font-size:11px;letter-spacing:.16em;text-transform:uppercase;overflow:hidden;height:34px;display:flex;align-items:center}
+  .ticker-inner{display:flex;align-items:center;gap:0;white-space:nowrap;animation:tick 36s linear infinite}
+  .ticker-label{background:var(--rose-deep);padding:0 18px;height:34px;display:flex;align-items:center;font-weight:700;letter-spacing:.2em;flex-shrink:0;margin-right:28px}
+  .ticker-item{margin-right:60px;opacity:.85}
+  .ticker-item span{color:var(--rose);margin-right:10px}
+  @keyframes tick{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
   /* ---------- TOP BAR ---------- */
   .topbar{
@@ -58,7 +70,7 @@
 
   /* ---------- HEADER ---------- */
   header{background:var(--cream);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--line)}
-  header .wrap{display:flex;flex-direction:column;align-items:center;padding-top:30px;padding-bottom:24px;gap:18px}
+  header .wrap{display:flex;flex-direction:column;align-items:center;padding-top:28px;padding-bottom:20px;gap:16px}
   .brand{font-size:54px;font-weight:400;letter-spacing:1px;line-height:.9;text-align:center}
   .brand .first{font-style:italic;color:var(--rose-deep)}
   .brand-sub{font-family:'Mulish';font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-top:8px}
@@ -75,17 +87,14 @@
   .hero{padding:80px 0 70px}
   .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:center}
   .hero-visual{
-    position:relative;aspect-ratio:4/4.6;border-radius:3px;overflow:hidden;
-    box-shadow:0 30px 60px -28px var(--shadow);
+    position:relative;aspect-ratio:4/4.6;border-radius:4px;overflow:hidden;
+    box-shadow:0 36px 70px -28px var(--shadow);
   }
-  .hero-visual .art{position:absolute;inset:0;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
-  .hero-visual:hover .art{transform:scale(1.04)}
-  .art-1{background:
-    radial-gradient(120% 90% at 20% 15%, #E9C9B4 0%, transparent 55%),
-    radial-gradient(120% 120% at 90% 100%, #9E7155 0%, transparent 60%),
-    linear-gradient(135deg, #C99B7E 0%, #8E6149 100%);}
+  .hero-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .hero-visual:hover img{transform:scale(1.05)}
+  .hero-visual .overlay{position:absolute;inset:0;background:linear-gradient(160deg,rgba(42,36,30,.15) 0%,rgba(42,36,30,.45) 100%)}
   .hero-visual .tag{position:absolute;top:24px;left:24px;background:var(--cream);padding:8px 16px;border-radius:30px}
-  .hero-visual .frame{position:absolute;inset:14px;border:1px solid rgba(255,255,255,.4);border-radius:2px;pointer-events:none}
+  .hero-visual .frame{position:absolute;inset:14px;border:1px solid rgba(255,255,255,.3);border-radius:2px;pointer-events:none}
   .hero-content .kicker{display:flex;align-items:center;gap:14px;margin-bottom:22px}
   .hero-content .kicker .line{width:46px;height:1px;background:var(--rose)}
   .hero-content h2{font-size:clamp(38px,4.6vw,62px);margin:0 0 22px;letter-spacing:0}
@@ -110,30 +119,29 @@
 
   /* ---------- ARTICLE GRID ---------- */
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:42px 36px;padding-bottom:90px}
-  .card{cursor:pointer;opacity:0;transform:translateY(24px);animation:rise .7s forwards}
+  .card{cursor:pointer;opacity:0;transform:translateY(24px);animation:rise .7s forwards;transition:opacity .35s,transform .35s}
+  .card.hidden{display:none}
   @keyframes rise{to{opacity:1;transform:none}}
-  .card .thumb{position:relative;aspect-ratio:1/1.04;border-radius:3px;overflow:hidden;margin-bottom:20px;box-shadow:0 16px 34px -24px var(--shadow)}
-  .card .thumb .art{position:absolute;inset:0;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
-  .card:hover .thumb .art{transform:scale(1.05)}
-  .card .thumb .cat{position:absolute;left:16px;top:16px;background:var(--cream);padding:6px 13px;border-radius:30px;font-size:10px}
-  .card h4{font-size:25px;margin-bottom:10px;transition:color .3s}
+  .card .thumb{
+    position:relative;aspect-ratio:1/1.04;border-radius:4px;overflow:hidden;
+    margin-bottom:20px;box-shadow:0 18px 38px -22px var(--shadow);
+  }
+  .card .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+  .card:hover .thumb img{transform:scale(1.06)}
+  .card .thumb .img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(42,36,30,.55) 100%)}
+  .card .thumb .cat{position:absolute;left:14px;top:14px;background:var(--cream);padding:6px 13px;border-radius:30px;font-size:10px;z-index:1}
+  .card h4{font-size:24px;margin-bottom:10px;transition:color .3s;line-height:1.15}
   .card:hover h4{color:var(--rose-deep)}
   .card p{font-size:14.5px;color:var(--ink-soft);margin-bottom:14px}
   .card .cmeta{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:flex;gap:12px;align-items:center}
-
-  /* gradient art variants */
-  .g-macro{background:radial-gradient(110% 90% at 15% 20%,#D9C3A8 0,transparent 55%),linear-gradient(140deg,#B89674 0%,#7E5E42 100%)}
-  .g-social{background:radial-gradient(110% 90% at 80% 15%,#E7D2C4 0,transparent 55%),linear-gradient(140deg,#C99987 0%,#9A6B57 100%)}
-  .g-ineg{background:radial-gradient(110% 100% at 25% 80%,#CBD2C0 0,transparent 55%),linear-gradient(140deg,#9DA98F 0%,#6E7C5F 100%)}
-  .g-travail{background:radial-gradient(110% 90% at 85% 80%,#E3CBB4 0,transparent 55%),linear-gradient(140deg,#C29A6F 0%,#8A6038 100%)}
-  .g-decryp{background:radial-gradient(120% 100% at 50% 0%,#E9D8C9 0,transparent 60%),linear-gradient(160deg,#B98E72 0%,#6F4F3A 100%)}
+  .card .new-badge{display:inline-block;background:var(--rose-deep);color:var(--cream);font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:20px;margin-left:8px;vertical-align:middle}
 
   /* ---------- ABOUT ---------- */
   .about{background:var(--cream-deep);padding:96px 0;position:relative;overflow:hidden}
   .about .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center}
-  .portrait{position:relative;aspect-ratio:1/1.18;border-radius:3px;overflow:hidden;box-shadow:0 30px 56px -30px var(--shadow)}
-  .portrait .art{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 25%,#EAD2BE 0,transparent 60%),linear-gradient(150deg,#C49A7C,#8A6049)}
-  .portrait .ini{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-style:italic;font-size:120px;color:rgba(255,255,255,.85)}
+  .portrait{position:relative;aspect-ratio:1/1.18;border-radius:4px;overflow:hidden;box-shadow:0 30px 56px -30px var(--shadow)}
+  .portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .portrait .ini{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond';font-style:italic;font-size:120px;color:rgba(255,255,255,.85);background:radial-gradient(90% 70% at 50% 25%,#EAD2BE 0,transparent 60%),linear-gradient(150deg,#C49A7C,#8A6049)}
   .about-text .label{margin-bottom:18px;display:block}
   .about-text h3{font-size:46px;margin-bottom:24px;line-height:1.05}
   .about-text h3 em{font-style:italic;color:var(--rose-deep)}
@@ -180,189 +188,341 @@
     .topbar .socials{display:none}
     .news-form{flex-direction:column;border-radius:18px}
     .news-form button{padding:14px}
+    .ticker{display:none}
   }
 </style>
 </head>
 <body>
 
-  <!-- TOP BAR -->
-  <div class="topbar">
-    <div class="wrap">
-      <span id="dateline">Édition du jour</span>
-      <div class="socials">
-        <a href="#">Instagram</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Newsletter</a>
+<div id="progress"></div>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner" id="ticker">
+    <div class="ticker-label">Actu</div>
+    <span class="ticker-item"><span>→</span>BCE : taux directeur maintenu à 2,25 % — impact sur l'épargne et l'immobilier</span>
+    <span class="ticker-item"><span>→</span>Tarifs douaniers américains : les exportateurs européens face à la nouvelle donne</span>
+    <span class="ticker-item"><span>→</span>Chômage en France : 7,3 % au T1 2026, légère hausse chez les jeunes</span>
+    <span class="ticker-item"><span>→</span>Transition énergétique : 120 000 emplois verts attendus d'ici 2028</span>
+    <span class="ticker-item"><span>→</span>Inflation à 2,1 % en mai 2026 — premier recul significatif depuis 18 mois</span>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-label">Actu</div>
+    <span class="ticker-item"><span>→</span>BCE : taux directeur maintenu à 2,25 % — impact sur l'épargne et l'immobilier</span>
+    <span class="ticker-item"><span>→</span>Tarifs douaniers américains : les exportateurs européens face à la nouvelle donne</span>
+    <span class="ticker-item"><span>→</span>Chômage en France : 7,3 % au T1 2026, légère hausse chez les jeunes</span>
+    <span class="ticker-item"><span>→</span>Transition énergétique : 120 000 emplois verts attendus d'ici 2028</span>
+    <span class="ticker-item"><span>→</span>Inflation à 2,1 % en mai 2026 — premier recul significatif depuis 18 mois</span>
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <span id="dateline">Édition du jour</span>
+    <div class="socials">
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#news">Newsletter</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="wrap">
+    <div style="text-align:center">
+      <div class="brand"><span class="first">Imane</span> Biya</div>
+      <div class="brand-sub">Économie &nbsp;·&nbsp; Société &nbsp;·&nbsp; Décryptages</div>
+    </div>
+    <nav class="main">
+      <a href="#hero">Accueil</a>
+      <a href="#articles">Articles</a>
+      <a href="#articles">Macroéconomie</a>
+      <a href="#articles">Société</a>
+      <a href="#about">À propos</a>
+      <a href="#news">Newsletter</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-visual">
+      <img
+        src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&h=1000&fit=crop&q=80"
+        alt="Graphiques économiques représentant l'inflation et le pouvoir d'achat"
+        loading="eager"
+      >
+      <div class="overlay"></div>
+      <div class="frame"></div>
+      <div class="tag label">À la une</div>
+    </div>
+    <div class="hero-content">
+      <div class="kicker"><span class="line"></span><span class="label">Macroéconomie</span></div>
+      <h2>Le pouvoir d'achat à l'épreuve de <em>l'inflation</em></h2>
+      <p class="excerpt">Derrière les chiffres officiels se cache une réalité bien plus nuancée. Qui paie réellement la facture de la hausse des prix — et pourquoi les moyennes nationales racontent une histoire incomplète.</p>
+      <div class="meta">
+        <span>Par Imane Biya</span><span class="dot"></span>
+        <span>8 min de lecture</span><span class="dot"></span>
+        <span>Analyse</span>
       </div>
+      <a href="#" class="read-link">Lire l'article &nbsp;→</a>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES -->
+<section class="wrap" id="articles">
+  <div class="sec-head">
+    <h3>Derniers articles</h3>
+    <div class="filters">
+      <button class="active" data-filter="all">Tous</button>
+      <button data-filter="macro">Macroéconomie</button>
+      <button data-filter="societe">Société</button>
+      <button data-filter="inegalites">Inégalités</button>
+      <button data-filter="travail">Travail</button>
+      <button data-filter="decryptage">Décryptage</button>
     </div>
   </div>
 
-  <!-- HEADER -->
-  <header>
-    <div class="wrap">
-      <div style="text-align:center">
-        <div class="brand"><span class="first">Imane</span> Biya</div>
-        <div class="brand-sub">Économie &nbsp;·&nbsp; Société &nbsp;·&nbsp; Décryptages</div>
+  <div class="grid" id="article-grid">
+
+    <!-- NEW — Tarifs douaniers -->
+    <article class="card" data-cat="macro" style="animation-delay:.04s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=630&fit=crop&q=80"
+          alt="Conteneurs de transport maritime symbolisant le commerce international"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Macroéconomie</span>
       </div>
-      <nav class="main">
-        <a href="#hero">Accueil</a>
-        <a href="#articles">Articles</a>
-        <a href="#articles">Macroéconomie</a>
-        <a href="#articles">Société</a>
-        <a href="#about">À propos</a>
-        <a href="#news">Newsletter</a>
-      </nav>
-    </div>
-  </header>
+      <h4>Tarifs douaniers américains : ce que l'Europe risque vraiment <span class="new-badge">Nouveau</span></h4>
+      <p>La nouvelle politique commerciale de Washington rebat les cartes pour les exportateurs français et européens. Secteurs exposés, marges comprimées, et options de riposte : le point complet.</p>
+      <div class="cmeta"><span>4 juin 2026</span><span>·</span><span>7 min</span></div>
+    </article>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-visual">
-        <div class="art art-1"></div>
-        <div class="frame"></div>
-        <div class="tag label">À la une</div>
+    <!-- NEW — BCE taux -->
+    <article class="card" data-cat="macro" style="animation-delay:.10s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=600&h=630&fit=crop&q=80"
+          alt="Façade d'une banque centrale européenne"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Macroéconomie</span>
       </div>
-      <div class="hero-content">
-        <div class="kicker"><span class="line"></span><span class="label">Macroéconomie</span></div>
-        <h2>Le pouvoir d'achat à l'épreuve de <em>l'inflation</em></h2>
-        <p class="excerpt">Derrière les chiffres officiels se cache une réalité bien plus nuancée. Qui paie réellement la facture de la hausse des prix — et pourquoi les moyennes nationales racontent une histoire incomplète.</p>
-        <div class="meta">
-          <span>Par Imane Biya</span><span class="dot"></span>
-          <span>8 min de lecture</span><span class="dot"></span>
-          <span>Analyse</span>
-        </div>
-        <a href="#" class="read-link">Lire l'article &nbsp;→</a>
+      <h4>BCE et taux d'intérêt : ce que ça change concrètement pour vous <span class="new-badge">Nouveau</span></h4>
+      <p>Épargne rémunérée, crédit immobilier, investissement des entreprises : quand la Banque centrale européenne maintient ses taux, les effets se font sentir partout — sauf là où on l'attend.</p>
+      <div class="cmeta"><span>1 juin 2026</span><span>·</span><span>8 min</span></div>
+    </article>
+
+    <!-- NEW — Emplois verts -->
+    <article class="card" data-cat="travail" style="animation-delay:.16s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&h=630&fit=crop&q=80"
+          alt="Éoliennes dans un champ représentant la transition énergétique"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Marché du travail</span>
       </div>
-    </div>
-  </section>
+      <h4>Emplois verts : promesse tenue ou nouveau mirage ? <span class="new-badge">Nouveau</span></h4>
+      <p>La transition énergétique devait créer des milliers d'emplois. Où en est-on ? Entre les métiers qui recrutent vraiment en 2026 et ceux qui restent sur le papier, l'écart est instructif.</p>
+      <div class="cmeta"><span>29 mai 2026</span><span>·</span><span>6 min</span></div>
+    </article>
 
-  <!-- ARTICLES -->
-  <section class="wrap" id="articles">
-    <div class="sec-head">
-      <h3>Derniers articles</h3>
-      <div class="filters">
-        <button class="active">Tous</button>
-        <button>Macroéconomie</button>
-        <button>Société</button>
-        <button>Inégalités</button>
-        <button>Travail</button>
-        <button>Décryptage</button>
+    <!-- Génération précaire -->
+    <article class="card" data-cat="travail" style="animation-delay:.22s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=600&h=630&fit=crop&q=80"
+          alt="Jeune professionnel au travail symbolisant la précarité des jeunes diplômés"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Marché du travail</span>
       </div>
-    </div>
+      <h4>Génération précaire : trouver sa place après le diplôme</h4>
+      <p>CDD à répétition, stages prolongés, freelance subi. Comment l'entrée dans la vie active s'est transformée en parcours d'obstacles pour les jeunes diplômés.</p>
+      <div class="cmeta"><span>2 juin 2026</span><span>·</span><span>6 min</span></div>
+    </article>
 
-    <div class="grid">
-
-      <article class="card" style="animation-delay:.05s">
-        <div class="thumb"><div class="art g-travail"></div><span class="cat label">Marché du travail</span></div>
-        <h4>Génération précaire : trouver sa place après le diplôme</h4>
-        <p>CDD à répétition, stages prolongés, freelance subi. Comment l'entrée dans la vie active s'est transformée en parcours d'obstacles pour les jeunes diplômés.</p>
-        <div class="cmeta"><span>2 juin 2026</span><span>·</span><span>6 min</span></div>
-      </article>
-
-      <article class="card" style="animation-delay:.12s">
-        <div class="thumb"><div class="art g-decryp"></div><span class="cat label">Décryptage</span></div>
-        <h4>L'économie du partage est-elle vraiment un partage ?</h4>
-        <p>Plateformes, livraison, location entre particuliers : derrière le vocabulaire collaboratif, un modèle qui redistribue les risques bien plus que les profits.</p>
-        <div class="cmeta"><span>28 mai 2026</span><span>·</span><span>7 min</span></div>
-      </article>
-
-      <article class="card" style="animation-delay:.19s">
-        <div class="thumb"><div class="art g-ineg"></div><span class="cat label">Inégalités</span></div>
-        <h4>Le plafond de verre, raconté par les chiffres</h4>
-        <p>Écart de salaire, accès aux postes de direction, charge mentale invisible : un état des lieux des inégalités femmes-hommes au travail, sans détour.</p>
-        <div class="cmeta"><span>21 mai 2026</span><span>·</span><span>9 min</span></div>
-      </article>
-
-      <article class="card" style="animation-delay:.26s">
-        <div class="thumb"><div class="art g-social"></div><span class="cat label">Société</span></div>
-        <h4>Logement : la crise silencieuse qui redessine nos villes</h4>
-        <p>Quand se loger devient le premier poste de dépense, c'est toute la géographie de nos vies qui change. Enquête sur une tension devenue structurelle.</p>
-        <div class="cmeta"><span>14 mai 2026</span><span>·</span><span>8 min</span></div>
-      </article>
-
-      <article class="card" style="animation-delay:.33s">
-        <div class="thumb"><div class="art g-travail"></div><span class="cat label">Marché du travail</span></div>
-        <h4>Faut-il avoir peur de l'IA sur le marché de l'emploi ?</h4>
-        <p>Entre promesses de productivité et craintes de remplacement, la vérité se trouve — comme souvent — dans les nuances. Ce que disent vraiment les données.</p>
-        <div class="cmeta"><span>7 mai 2026</span><span>·</span><span>10 min</span></div>
-      </article>
-
-      <article class="card" style="animation-delay:.40s">
-        <div class="thumb"><div class="art g-macro"></div><span class="cat label">Macroéconomie</span></div>
-        <h4>La dette publique, expliquée sans catastrophisme</h4>
-        <p>« Nos enfants vont payer » : la formule fait recette mais simplifie à l'excès. Décortiquons ce qu'est réellement une dette d'État, et ce qu'elle n'est pas.</p>
-        <div class="cmeta"><span>30 avril 2026</span><span>·</span><span>11 min</span></div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="wrap">
-      <div class="portrait">
-        <div class="art"></div>
-        <div class="ini">IB</div>
+    <!-- Économie du partage -->
+    <article class="card" data-cat="decryptage" style="animation-delay:.28s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=630&fit=crop&q=80"
+          alt="Personnes utilisant leurs téléphones pour des plateformes collaboratives"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Décryptage</span>
       </div>
-      <div class="about-text">
-        <span class="label">À propos</span>
-        <h3>Comprendre l'économie <em>autrement</em></h3>
-        <p class="lead">« L'économie n'est pas qu'une affaire de chiffres : c'est avant tout une histoire de choix, et de qui en supporte les conséquences. »</p>
-        <p>Je m'appelle Imane Biya, étudiante en économie. Sur ce blog, je décrypte l'actualité économique et sociale avec une seule ambition : la rendre claire, honnête et accessible — sans jargon inutile ni raccourcis trompeurs.</p>
-        <p>Chaque article part d'une question simple que l'on se pose tous, pour remonter jusqu'aux mécanismes qui façonnent notre quotidien. Parce que mieux comprendre, c'est déjà reprendre un peu de pouvoir.</p>
-        <div class="sign">Imane</div>
-      </div>
-    </div>
-  </section>
+      <h4>L'économie du partage est-elle vraiment un partage ?</h4>
+      <p>Plateformes, livraison, location entre particuliers : derrière le vocabulaire collaboratif, un modèle qui redistribue les risques bien plus que les profits.</p>
+      <div class="cmeta"><span>28 mai 2026</span><span>·</span><span>7 min</span></div>
+    </article>
 
-  <!-- NEWSLETTER -->
-  <section class="news" id="news">
-    <div class="wrap">
-      <span class="label">La lettre d'Imane</span>
-      <h3>Recevez mes <em>analyses</em></h3>
-      <p>Un décryptage par semaine, directement dans votre boîte mail. Pour suivre l'actualité économique et sociale avec un regard à la fois rigoureux et accessible.</p>
-      <form class="news-form" onsubmit="return false">
-        <input type="email" placeholder="Votre adresse e-mail" aria-label="Adresse e-mail">
-        <button type="submit">S'abonner</button>
-      </form>
-      <div class="note">Pas de spam. Un désabonnement en un clic, à tout moment.</div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <div>
-        <div class="fbrand"><span class="first">Imane</span> Biya</div>
-        <div class="fbrand-sub">Économie · Société · Décryptages</div>
+    <!-- Plafond de verre -->
+    <article class="card" data-cat="inegalites" style="animation-delay:.34s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&h=630&fit=crop&q=80"
+          alt="Réunion professionnelle illustrant les inégalités femmes-hommes au travail"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Inégalités</span>
       </div>
-      <nav>
-        <a href="#hero">Accueil</a>
-        <a href="#articles">Articles</a>
-        <a href="#about">À propos</a>
-        <a href="#news">Newsletter</a>
-        <a href="#">Contact</a>
-      </nav>
+      <h4>Le plafond de verre, raconté par les chiffres</h4>
+      <p>Écart de salaire, accès aux postes de direction, charge mentale invisible : un état des lieux des inégalités femmes-hommes au travail, sans détour.</p>
+      <div class="cmeta"><span>21 mai 2026</span><span>·</span><span>9 min</span></div>
+    </article>
+
+    <!-- Logement -->
+    <article class="card" data-cat="societe" style="animation-delay:.40s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=630&fit=crop&q=80"
+          alt="Immeubles résidentiels représentant la crise du logement urbain"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Société</span>
+      </div>
+      <h4>Logement : la crise silencieuse qui redessine nos villes</h4>
+      <p>Quand se loger devient le premier poste de dépense, c'est toute la géographie de nos vies qui change. Enquête sur une tension devenue structurelle.</p>
+      <div class="cmeta"><span>14 mai 2026</span><span>·</span><span>8 min</span></div>
+    </article>
+
+    <!-- IA emploi -->
+    <article class="card" data-cat="travail" style="animation-delay:.46s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=600&h=630&fit=crop&q=80"
+          alt="Intelligence artificielle et automatisation dans le monde du travail"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Marché du travail</span>
+      </div>
+      <h4>Faut-il avoir peur de l'IA sur le marché de l'emploi ?</h4>
+      <p>Entre promesses de productivité et craintes de remplacement, la vérité se trouve — comme souvent — dans les nuances. Ce que disent vraiment les données.</p>
+      <div class="cmeta"><span>7 mai 2026</span><span>·</span><span>10 min</span></div>
+    </article>
+
+    <!-- Dette publique -->
+    <article class="card" data-cat="macro" style="animation-delay:.52s">
+      <div class="thumb">
+        <img
+          src="https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?w=600&h=630&fit=crop&q=80"
+          alt="Tableau de statistiques économiques représentant la dette publique"
+          loading="lazy"
+        >
+        <div class="img-overlay"></div>
+        <span class="cat label">Macroéconomie</span>
+      </div>
+      <h4>La dette publique, expliquée sans catastrophisme</h4>
+      <p>« Nos enfants vont payer » : la formule fait recette mais simplifie à l'excès. Décortiquons ce qu'est réellement une dette d'État, et ce qu'elle n'est pas.</p>
+      <div class="cmeta"><span>30 avril 2026</span><span>·</span><span>11 min</span></div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="portrait">
+      <div class="ini">IB</div>
     </div>
-    <div class="wrap fbottom">
-      <span>© 2026 Imane Biya. Tous droits réservés.</span>
-      <span>Pensé &amp; écrit avec rigueur.</span>
+    <div class="about-text">
+      <span class="label">À propos</span>
+      <h3>Comprendre l'économie <em>autrement</em></h3>
+      <p class="lead">« L'économie n'est pas qu'une affaire de chiffres : c'est avant tout une histoire de choix, et de qui en supporte les conséquences. »</p>
+      <p>Je m'appelle Imane Biya, étudiante en économie. Sur ce blog, je décrypte l'actualité économique et sociale avec une seule ambition : la rendre claire, honnête et accessible — sans jargon inutile ni raccourcis trompeurs.</p>
+      <p>Chaque article part d'une question simple que l'on se pose tous, pour remonter jusqu'aux mécanismes qui façonnent notre quotidien. Parce que mieux comprendre, c'est déjà reprendre un peu de pouvoir.</p>
+      <div class="sign">Imane</div>
     </div>
-  </footer>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="news" id="news">
+  <div class="wrap">
+    <span class="label">La lettre d'Imane</span>
+    <h3>Recevez mes <em>analyses</em></h3>
+    <p>Un décryptage par semaine, directement dans votre boîte mail. Pour suivre l'actualité économique et sociale avec un regard à la fois rigoureux et accessible.</p>
+    <form class="news-form" onsubmit="return false">
+      <input type="email" placeholder="Votre adresse e-mail" aria-label="Adresse e-mail">
+      <button type="submit">S'abonner</button>
+    </form>
+    <div class="note">Pas de spam. Un désabonnement en un clic, à tout moment.</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="fbrand"><span class="first">Imane</span> Biya</div>
+      <div class="fbrand-sub">Économie · Société · Décryptages</div>
+    </div>
+    <nav>
+      <a href="#hero">Accueil</a>
+      <a href="#articles">Articles</a>
+      <a href="#about">À propos</a>
+      <a href="#news">Newsletter</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+  <div class="wrap fbottom">
+    <span>© 2026 Imane Biya. Tous droits réservés.</span>
+    <span>Pensé &amp; écrit avec rigueur.</span>
+  </div>
+</footer>
 
 <script>
   // Dateline
-  const d=new Date();
-  const opts={weekday:'long',day:'numeric',month:'long',year:'numeric'};
-  let s=d.toLocaleDateString('fr-FR',opts);
-  document.getElementById('dateline').textContent='Édition du '+s.charAt(0).toUpperCase()+s.slice(1);
+  const d = new Date();
+  const opts = {weekday:'long', day:'numeric', month:'long', year:'numeric'};
+  let s = d.toLocaleDateString('fr-FR', opts);
+  document.getElementById('dateline').textContent = 'Édition du ' + s.charAt(0).toUpperCase() + s.slice(1);
 
-  // Filter buttons (visual toggle)
-  document.querySelectorAll('.filters button').forEach(b=>{
-    b.addEventListener('click',()=>{
+  // Reading progress bar
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  }, {passive: true});
+
+  // Filter buttons — functional
+  const filterMap = {
+    'all': null,
+    'macro': 'macro',
+    'societe': 'societe',
+    'inegalites': 'inegalites',
+    'travail': 'travail',
+    'decryptage': 'decryptage'
+  };
+
+  document.querySelectorAll('.filters button').forEach(btn => {
+    btn.addEventListener('click', () => {
       document.querySelector('.filters button.active').classList.remove('active');
-      b.classList.add('active');
+      btn.classList.add('active');
+      const cat = btn.dataset.filter;
+      document.querySelectorAll('#article-grid .card').forEach(card => {
+        if (cat === 'all' || card.dataset.cat === cat) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
     });
   });
 </script>
